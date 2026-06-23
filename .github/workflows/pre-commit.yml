@@ -1,24 +1,16 @@
----
-name: "pre-commit"
-
+name: pre-commit
 "on":
-  pull_request:
-  workflow_dispatch:
+  push:
 
 permissions:
   contents: read
 
 jobs:
-  pre-commit:
+  run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
         with:
-          python-version: "3.x"
-
-      - name: Run pre-commit
-        uses: pre-commit/action@v3.0.1
+          terraform_version: "1.14.2"
+      - uses: pre-commit/action@v3.0.1
