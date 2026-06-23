@@ -40,18 +40,12 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [kubectl_manifest.eso_argocd_admin_password](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
-| [kubectl_manifest.eso_argocd_github_token](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
-| [kubectl_manifest.eso_cluster_secret_store](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubectl_manifest.platform_xrds_appset](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region where Secrets Manager secrets are stored | `string` | `"us-east-1"` | no |
-| <a name="input_eso_namespace"></a> [eso\_namespace](#input\_eso\_namespace) | Kubernetes namespace where ESO is installed | `string` | `"external-secrets"` | no |
-| <a name="input_eso_service_account_name"></a> [eso\_service\_account\_name](#input\_eso\_service\_account\_name) | Name of the ESO Kubernetes service account (must have IRSA annotation for Secrets Manager access) | `string` | `"eso-service-account"` | no |
 | <a name="input_github_org"></a> [github\_org](#input\_github\_org) | GitHub organisation to scan for repos tagged with platform-custom-xrds | `string` | `"urukube"` | no |
 | <a name="input_github_token_secret_key"></a> [github\_token\_secret\_key](#input\_github\_token\_secret\_key) | Key within the secret that holds the GitHub token value | `string` | `"token"` | no |
 | <a name="input_github_token_secret_name"></a> [github\_token\_secret\_name](#input\_github\_token\_secret\_name) | Name of the Kubernetes secret in the argocd namespace that holds the GitHub token | `string` | `"argocd-github-token"` | no |
