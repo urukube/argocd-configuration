@@ -30,7 +30,7 @@ resource "kubectl_manifest" "platform_xrds_appset" {
               organization = var.github_org
               tokenRef = {
                 secretName = var.github_token_secret_name
-                secretKey  = var.github_token_secret_key
+                key        = var.github_token_secret_key
               }
             }
             filters = [
