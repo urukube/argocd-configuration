@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform-custom-xrds
+  namespace: argocd
+spec:
+  generators:
+  - scmProvider:
+      github:
+        organization: ${github_org}
+        tokenRef:
+          secretName: ${github_token_secret_name}
+          key: ${github_token_secret_key}
+      filters:
+      - labelMatch: platform-custom-xrds
+      cloneProtocol: https
+  template:
+    metadata:
+      name: xrd-{{repository}}
+      labels:
+        managed-by: platform-custom-xrds-appset
+    spec:
+      project: default
+      source:
+        repoURL: '{{url}}'
+        targetRevision: main
+        path: .
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: crossplane-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=false

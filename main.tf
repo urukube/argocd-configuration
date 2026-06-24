@@ -15,62 +15,9 @@
 ################################################################################
 
 resource "kubectl_manifest" "platform_xrds_appset" {
-  yaml_body = yamlencode({
-    apiVersion = "argoproj.io/v1alpha1"
-    kind       = "ApplicationSet"
-    metadata = {
-      name      = "platform-custom-xrds"
-      namespace = "argocd"
-    }
-    spec = {
-      generators = [
-        {
-          scmProvider = {
-            github = {
-              organization = var.github_org
-              tokenRef = {
-                secretName = var.github_token_secret_name
-                key        = var.github_token_secret_key
-              }
-            }
-            filters = [
-              {
-                labelMatch = "platform-custom-xrds"
-              }
-            ]
-            cloneProtocol = "https"
-          }
-        }
-      ]
-      template = {
-        metadata = {
-          name = "xrd-{{repository}}"
-          labels = {
-            "managed-by" = "platform-custom-xrds-appset"
-          }
-        }
-        spec = {
-          project = "default"
-          source = {
-            repoURL        = "{{url}}"
-            targetRevision = "main"
-            path           = "."
-          }
-          destination = {
-            server    = "https://kubernetes.default.svc"
-            namespace = "crossplane-system"
-          }
-          syncPolicy = {
-            automated = {
-              prune    = true
-              selfHeal = true
-            }
-            syncOptions = [
-              "CreateNamespace=false"
-            ]
-          }
-        }
-      }
-    }
+  yaml_body = templatefile("${path.module}/yamls/platform-xrds-appset.yaml", {
+    github_org               = var.github_org
+    github_token_secret_name = var.github_token_secret_name
+    github_token_secret_key  = var.github_token_secret_key
   })
 }
