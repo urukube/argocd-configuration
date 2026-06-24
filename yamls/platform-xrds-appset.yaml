@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -5,15 +6,15 @@ metadata:
   namespace: argocd
 spec:
   generators:
-  - scmProvider:
-      github:
-        organization: ${github_org}
-        tokenRef:
-          secretName: ${github_token_secret_name}
-          key: ${github_token_secret_key}
-      filters:
-      - labelMatch: platform-custom-xrds
-      cloneProtocol: https
+    - scmProvider:
+        github:
+          organization: ${github_org}
+          tokenRef:
+            secretName: ${github_token_secret_name}
+            key: ${github_token_secret_key}
+        filters:
+          - labelMatch: platform-custom-xrds
+        cloneProtocol: https
   template:
     metadata:
       name: xrd-{{repository}}
@@ -33,4 +34,4 @@ spec:
           prune: true
           selfHeal: true
         syncOptions:
-        - CreateNamespace=false
+          - CreateNamespace=false
