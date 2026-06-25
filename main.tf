@@ -21,3 +21,9 @@ resource "kubectl_manifest" "platform_xrds_appset" {
     github_token_secret_key  = var.github_token_secret_key
   })
 }
+
+resource "kubectl_manifest" "platform_tenant_registry_app" {
+  yaml_body = templatefile("${path.module}/yamls/platform-tenant-registry-app.yaml", {
+    github_org = var.github_org
+  })
+}

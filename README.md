@@ -40,6 +40,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [kubectl_manifest.platform_tenant_registry_app](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubectl_manifest.platform_xrds_appset](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 
 ## Inputs
